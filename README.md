@@ -223,3 +223,15 @@ README 4) Create Vitis project → Same: make platform from exported hardware, m
 
 README 5) UART test → Same spirit: a Python script (like their uart_test_nn.py) that sends bytes over UART and reads the result. Your script uses webcam frames instead of MNIST.
 >>>>>>> 2e29e8b4fc0f5fab31b235a6a29342e5cae0a278
+
+
+--- Instractions for capturing and converting an image
+sudo apt install v4l-utils	#install dignostics tool to see camera port and name
+v4l2-ctl --list-devices	#run the diagnostics
+sudo apt install fswebcam	#install the capturing tool
+fswebcam -d /dev/video2 -r 1280x720 --jpeg 95 --no-banner /home/youruser/webcam_shot.jpg	#capture an image
+sudo apt install imagemagick	#install conversions tool
+convert webcam_shot.jpg -colorspace Gray -resize 320x240 grayscale_small.jpg		#convert image to greyscale and 320x240 resolution
+convert grayscale_small.jpg -depth 8 GRAY:output_image.raw	#convert image to raw
+
+
